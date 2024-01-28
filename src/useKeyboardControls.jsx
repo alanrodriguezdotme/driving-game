@@ -5,7 +5,7 @@ const debug = true;
 const forwardForce = 100;
 const backwardForce = -200;
 
-export const useControls = (vehicleApi, chassisApi) => {
+export const useKeyboardControls = (vehicleApi, chassisApi) => {
   let [controls, setControls] = useState({});
 
   useEffect(() => {
@@ -85,5 +85,5 @@ export const useControls = (vehicleApi, chassisApi) => {
     }
   }, [controls, vehicleApi, chassisApi]);
 
-  return useControls;
+  return useKeyboardControls;
 };

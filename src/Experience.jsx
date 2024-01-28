@@ -7,7 +7,7 @@ import { Suspense } from "react";
 export default function Experience() {
   return (
     <Suspense fallback={null}>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <OrthographicCamera
         makeDefault
         zoom={60}

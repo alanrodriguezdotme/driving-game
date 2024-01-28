@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { useBox, useRaycastVehicle } from "@react-three/cannon";
 import { useWheels } from "./useWheels";
 import { WheelDebug } from "./WheelDebug";
-import { useControls } from "./useControls";
-import { Quaternion, Vector3 } from "three";
+import { useKeyboardControls } from "./useKeyboardControls";
+import { Vector3 } from "three";
 
-export default function Car({}) {
+export default function Car() {
   let result = useLoader(GLTFLoader, "/car-chassis.glb").scene;
 
   const position = [0, 1, 0];
@@ -38,7 +38,7 @@ export default function Car({}) {
     useRef(null)
   );
 
-  useControls(vehicleApi, chassisApi);
+  useKeyboardControls(vehicleApi, chassisApi);
 
   useFrame((state) => {
     let position = new Vector3(0, 0, 0);
