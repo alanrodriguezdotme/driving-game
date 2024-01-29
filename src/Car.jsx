@@ -50,7 +50,7 @@ export default function Car() {
     const z = chassisPosition.z + 100;
 
     state.camera.lookAt(chassisPosition);
-    state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
+    // state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
   });
 
   useEffect(() => {

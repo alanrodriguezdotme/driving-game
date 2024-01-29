@@ -21,8 +21,8 @@ export const useWheels = (width, height, front, radius) => {
   };
 
   const wheelYPos = -height / 3.7;
-  const frontWheelXPos = -front / 1.8;
-  const rearWheelXPos = front / 1.43;
+  const frontWheelXPos = -front / 1.55;
+  const rearWheelXPos = front / 1.47;
 
   const wheelInfos = [
     {

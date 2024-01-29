@@ -4,13 +4,14 @@ import Level from "./Level.jsx";
 import { Debug, Physics } from "@react-three/cannon";
 import { Suspense, useRef } from "react";
 
+const debug = false;
+
 export default function Experience() {
   const cameraRef = useRef(null);
 
   return (
     <Suspense fallback={null}>
-      {/* <OrbitControls /> */}
-
+      {debug && <OrbitControls />}
       <OrthographicCamera
         ref={cameraRef}
         makeDefault
@@ -20,10 +21,17 @@ export default function Experience() {
         far={2000}
       />
       <Physics broadphase="SAP" gravity={[0, -4, 0]}>
-        {/* <Debug> */}
-        <Lights />
-        <Level />
-        {/* </Debug> */}
+        {debug ? (
+          <Debug>
+            <Lights />
+            <Level />
+          </Debug>
+        ) : (
+          <>
+            <Lights />
+            <Level />
+          </>
+        )}
       </Physics>
     </Suspense>
   );
