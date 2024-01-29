@@ -61,7 +61,7 @@ export default function Car() {
         castShadow
         scale={[0.2, 0.2, 0.2]}
       >
-        <primitive object={result} position={[0, -1.3, -0.26]} />
+        <primitive object={result} position={[0, -1.3, -0.26]} castShadow />
       </group>
       {/* <mesh ref={chassisBody}>
         <meshBasicMaterial transparent opacity={0.3} />
