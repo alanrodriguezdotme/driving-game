@@ -41,9 +41,16 @@ export default function Car() {
   useKeyboardControls(vehicleApi, chassisApi);
 
   useFrame((state) => {
-    let position = new Vector3(0, 0, 0);
-    position.setFromMatrixPosition(chassisBody.current.matrixWorld);
-    state.camera.lookAt(position);
+    let chassisPosition = new Vector3();
+    chassisPosition.setFromMatrixPosition(chassisBody.current.matrixWorld);
+
+    let cameraPosition = new Vector3();
+    const x = chassisPosition.x + 100;
+    const y = 100;
+    const z = chassisPosition.z + 100;
+
+    state.camera.lookAt(chassisPosition);
+    state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
   });
 
   useEffect(() => {

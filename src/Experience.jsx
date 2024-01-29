@@ -2,13 +2,17 @@ import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import Lights from "./Lights.jsx";
 import Level from "./Level.jsx";
 import { Debug, Physics } from "@react-three/cannon";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 
 export default function Experience() {
+  const cameraRef = useRef(null);
+
   return (
     <Suspense fallback={null}>
       {/* <OrbitControls /> */}
+
       <OrthographicCamera
+        ref={cameraRef}
         makeDefault
         zoom={60}
         position={[100, 100, 100]}
