@@ -67,13 +67,13 @@ export const useKeyboardControls = (vehicleApi, chassisApi) => {
     if (controls.arrowright)
       chassisApi.applyLocalImpulse([0, -5, 0], [+1, 0, 0]);
 
-    // reset position
-    if (debug && controls.r) {
-      // chassisApi.position.set(0, 1, 0);
-      chassisApi.velocity.set(0, 0, 0);
-      chassisApi.angularVelocity.set(0, 0, 0);
-      chassisApi.rotation.set(0, 0, 0);
-    }
+    // // reset position
+    // if (debug && controls.r) {
+    //   // chassisApi.position.set(0, 1, 0);
+    //   chassisApi.velocity.set(0, 0, 0);
+    //   chassisApi.angularVelocity.set(0, 0, 0);
+    //   chassisApi.rotation.set(0, 0, 0);
+    // }
 
     const brakePower = 3.15;
     if (controls[" "]) {
