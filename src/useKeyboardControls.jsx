@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const debug = false;
 
-const forwardForce = 100;
+const forwardForce = 120;
 const backwardForce = -200;
 
 export const useKeyboardControls = (vehicleApi, chassisApi) => {
@@ -60,12 +60,12 @@ export const useKeyboardControls = (vehicleApi, chassisApi) => {
 
     // control tilting
     if (controls.arrowdown)
-      chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, +1]);
-    if (controls.arrowup) chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, -1]);
+      chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, +2]);
+    if (controls.arrowup) chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, -2]);
     if (controls.arrowleft)
-      chassisApi.applyLocalImpulse([0, -5, 0], [-1, 0, 0]);
+      chassisApi.applyLocalImpulse([0, -5, 0], [-2, 0, 0]);
     if (controls.arrowright)
-      chassisApi.applyLocalImpulse([0, -5, 0], [+1, 0, 0]);
+      chassisApi.applyLocalImpulse([0, -5, 0], [+2, 0, 0]);
 
     // reset position
     if (debug && controls.r) {
@@ -75,7 +75,7 @@ export const useKeyboardControls = (vehicleApi, chassisApi) => {
       chassisApi.rotation.set(0, 0, 0);
     }
 
-    const brakePower = 3.15;
+    const brakePower = 3.5;
     if (controls[" "]) {
       vehicleApi.setBrake(brakePower, 0);
       vehicleApi.setBrake(brakePower, 1);

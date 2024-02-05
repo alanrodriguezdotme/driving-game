@@ -59,12 +59,12 @@ function generateTreePosition() {
   return position;
 }
 
-export default function Level() {
+export default function Level({ debug }) {
   return (
     <>
-      <Ground position={[0, -0.25, 0]} />
+      <Ground position={[0, -0.25, 0]} debug={debug} />
       {/* <Ramp position={[0, 0, -5]} /> */}
-      <Car />
+      <Car debug={debug} />
       {[...Array(treeAmount)].map((_, i) => {
         const scale = Math.random() * (maxScale - minScale) + minScale;
         const position = generateTreePosition();
@@ -76,6 +76,7 @@ export default function Level() {
               rotation={[0, Math.random() * Math.PI * 2, 0]}
             />
             <ColliderBox
+              debug={debug}
               position={[position[0], position[1] + 1, position[2]]}
               scale={[scale * 0.75, scale * 5, scale * 0.75]}
             />

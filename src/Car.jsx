@@ -7,7 +7,7 @@ import { WheelDebug } from "./WheelDebug";
 import { useKeyboardControls } from "./useKeyboardControls";
 import { Vector3 } from "three";
 
-export default function Car() {
+export default function Car({ debug }) {
   let result = useLoader(GLTFLoader, "/car-chassis.glb").scene;
 
   const position = [0, 1, 0];
@@ -48,9 +48,10 @@ export default function Car() {
     const x = chassisPosition.x + 100;
     const y = 100;
     const z = chassisPosition.z + 100;
-
-    state.camera.lookAt(chassisPosition);
-    state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
+    if (!debug) {
+      state.camera.lookAt(chassisPosition);
+      state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
+    }
   });
 
   useEffect(() => {

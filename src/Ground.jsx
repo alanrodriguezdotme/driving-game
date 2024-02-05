@@ -6,7 +6,7 @@ import ColliderBox from "./ColliderBox";
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const groundMaterial = new THREE.MeshStandardMaterial({ color: "limegreen" });
 
-export default function Ground({ position = [0, 0, 0] }) {
+export default function Ground({ position = [0, 0, 0], debug = false }) {
   const [ref] = usePlane(
     () => ({
       type: "Static",
@@ -27,10 +27,10 @@ export default function Ground({ position = [0, 0, 0] }) {
         scale={[100, 1, 100]}
         receiveShadow
       />
-      <ColliderBox position={[0, 2, 50.5]} scale={[100, 4, 1]} />
-      <ColliderBox position={[0, 2, -50.5]} scale={[100, 4, 1]} />
-      <ColliderBox position={[50.5, 2, 0]} scale={[1, 4, 100]} />
-      <ColliderBox position={[-50.5, 2, 0]} scale={[1, 4, 100]} />
+      <ColliderBox debug={debug} position={[0, 2, 50.5]} scale={[100, 4, 1]} />
+      <ColliderBox debug={debug} position={[0, 2, -50.5]} scale={[100, 4, 1]} />
+      <ColliderBox debug={debug} position={[50.5, 2, 0]} scale={[1, 4, 100]} />
+      <ColliderBox debug={debug} position={[-50.5, 2, 0]} scale={[1, 4, 100]} />
     </group>
   );
 }

@@ -10,7 +10,7 @@ export const useWheels = (width, height, front, radius) => {
     axleLocal: [1, 0, 0], // wheel rotates around X-axis
     suspensionStiffness: 60,
     suspensionRestLength: 0.1,
-    frictionSlip: 5,
+    frictionSlip: 7,
     dampingRelaxation: 2.3,
     dampingCompression: 4.4,
     maxSuspensionForce: 100000,

@@ -2,12 +2,24 @@ import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import Lights from "./Lights.jsx";
 import Level from "./Level.jsx";
 import { Debug, Physics } from "@react-three/cannon";
-import { Suspense, useRef } from "react";
-
-const debug = false;
+import { Suspense, useEffect, useRef } from "react";
+import { useControls } from "leva";
 
 export default function Experience() {
+  const { debug } = useControls({ debug: false });
   const cameraRef = useRef(null);
+  const defaultCamera = {
+    zoom: 60,
+    position: [100, 100, 100],
+    near: 1,
+    far: 2000,
+  };
+
+  useEffect(() => {
+    if (cameraRef.current && debug) {
+      cameraRef.current.zoom = defaultCamera.zoom;
+    }
+  }, [debug]);
 
   return (
     <Suspense fallback={null}>
@@ -15,21 +27,21 @@ export default function Experience() {
       <OrthographicCamera
         ref={cameraRef}
         makeDefault
-        zoom={60}
-        position={[100, 100, 100]}
-        near={1}
-        far={2000}
+        zoom={defaultCamera.zoom}
+        position={defaultCamera.position}
+        near={defaultCamera.near}
+        far={defaultCamera.far}
       />
-      <Physics broadphase="SAP" gravity={[0, -4, 0]}>
+      <Physics broadphase="SAP" gravity={[0, -5, 0]}>
         {debug ? (
           <Debug>
             <Lights />
-            <Level />
+            <Level debug={debug} />
           </Debug>
         ) : (
           <>
             <Lights />
-            <Level />
+            <Level debug={debug} />
           </>
         )}
       </Physics>
