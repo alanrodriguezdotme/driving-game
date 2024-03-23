@@ -6,7 +6,6 @@ import { Suspense, useEffect, useRef } from "react";
 import { useControls } from "leva";
 
 export default function Experience() {
-  const { debug } = useControls({ debug: true });
   const cameraRef = useRef(null);
   const defaultCamera = {
     zoom: 60,
@@ -14,6 +13,9 @@ export default function Experience() {
     near: 1,
     far: 2000,
   };
+  const queryParams = new URLSearchParams(window.location.search);
+  const debugFromUrl = queryParams.get("debug") === "true";
+  const { debug } = useControls({ debug: debugFromUrl });
 
   useEffect(() => {
     if (cameraRef.current && debug) {
