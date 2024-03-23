@@ -59,6 +59,11 @@ export default function Car({ debug }) {
     let mesh = result;
     mesh.scale.set(1, 1, 1);
     mesh.children[0].position.set(0, 0, 0);
+    mesh.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
   }, [result]);
 
   return (

@@ -5,7 +5,7 @@ let debug = false;
 
 export const useKeyboardControls = (vehicleApi, chassisApi) => {
   let [controls, setControls] = useState({});
-  const { forwardForce, backwardForce, brakePower } = useControls({
+  const { forwardForce, backwardForce, brakePower } = useControls("Car", {
     forwardForce: {
       value: 150,
       min: 10,

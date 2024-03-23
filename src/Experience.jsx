@@ -6,7 +6,7 @@ import { Suspense, useEffect, useRef } from "react";
 import { useControls } from "leva";
 
 export default function Experience() {
-  const { debug } = useControls({ debug: false });
+  const { debug } = useControls({ debug: true });
   const cameraRef = useRef(null);
   const defaultCamera = {
     zoom: 60,
@@ -23,11 +23,11 @@ export default function Experience() {
 
   return (
     <Suspense fallback={null}>
-      {debug && <OrbitControls />}
+      {debug && <OrbitControls zoom={-5} />}
       <OrthographicCamera
         ref={cameraRef}
         makeDefault
-        zoom={defaultCamera.zoom}
+        zoom={debug ? 10 : defaultCamera.zoom}
         position={defaultCamera.position}
         near={defaultCamera.near}
         far={defaultCamera.far}
@@ -35,13 +35,13 @@ export default function Experience() {
       <Physics broadphase="SAP" gravity={[0, -5, 0]}>
         {debug ? (
           <Debug>
-            <Lights />
+            <Lights debug={debug} />
             <Level debug={debug} />
           </Debug>
         ) : (
           <>
             <Lights />
-            <Level debug={debug} />
+            <Level />
           </>
         )}
       </Physics>

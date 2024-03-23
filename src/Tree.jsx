@@ -1,11 +1,32 @@
-import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
-export default function Tree({ position, scale, rotation }) {
-  let result = useGLTF("/tree-1.glb").scene;
+const coneGeometry = new THREE.ConeGeometry(1, 1, 6);
+const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 1, 6);
 
+const leavesMaterial = new THREE.MeshStandardMaterial({ color: "green" });
+const trunkMaterial = new THREE.MeshStandardMaterial({ color: "brown" });
+
+export default function Tree({
+  position = [0, 0, 0],
+  scale = [1, 1, 1],
+  rotation = [0, 0, 0],
+}) {
   return (
-    <group scale={scale} rotation={rotation}>
-      <primitive object={result} position={position} />
+    <group position={position} scale={scale} rotation={rotation}>
+      <mesh
+        geometry={coneGeometry}
+        material={leavesMaterial}
+        position={[0, 2.5, 0]}
+        scale={[1, 3, 1]}
+        castShadow
+      />
+      <mesh
+        geometry={cylinderGeometry}
+        material={trunkMaterial}
+        position={[0, 0.5, 0]}
+        scale={[0.25, 1, 0.25]}
+        castShadow
+      />
     </group>
   );
 }
