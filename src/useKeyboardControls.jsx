@@ -1,12 +1,30 @@
+import { useControls } from "leva";
 import { useEffect, useState } from "react";
 
-const debug = false;
-
-const forwardForce = 120;
-const backwardForce = -200;
+let debug = false;
 
 export const useKeyboardControls = (vehicleApi, chassisApi) => {
   let [controls, setControls] = useState({});
+  const { forwardForce, backwardForce, brakePower } = useControls({
+    forwardForce: {
+      value: 150,
+      min: 10,
+      max: 400,
+      step: 10,
+    },
+    backwardForce: {
+      value: -200,
+      min: -400,
+      max: -10,
+      step: 10,
+    },
+    brakePower: {
+      value: 4,
+      min: 0,
+      max: 10,
+      step: 0.1,
+    },
+  });
 
   useEffect(() => {
     const keyDownPressHandler = (e) => {
@@ -75,7 +93,6 @@ export const useKeyboardControls = (vehicleApi, chassisApi) => {
       chassisApi.rotation.set(0, 0, 0);
     }
 
-    const brakePower = 3.5;
     if (controls[" "]) {
       vehicleApi.setBrake(brakePower, 0);
       vehicleApi.setBrake(brakePower, 1);

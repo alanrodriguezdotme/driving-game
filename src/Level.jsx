@@ -46,7 +46,7 @@ function isPositionInExclusionZone(position) {
   // Calculate the distance from the car position
   const distance = Math.sqrt(
     Math.pow(position[0] - carPosition[0], 2) +
-      Math.pow(position[2] - carPosition[2], 2)
+      Math.pow(position[2] - carPosition[2], 1.5)
   );
   return distance < exclusionRadius;
 }
