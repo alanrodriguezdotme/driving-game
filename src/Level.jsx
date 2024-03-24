@@ -24,13 +24,18 @@ function isPositionInExclusionZone(position) {
   return distance < exclusionRadius;
 }
 
-function generateTreePosition() {
+function generateTree() {
   let position;
   do {
-    position = [Math.random() * 75 - 35, -0.25, Math.random() * 75 - 35];
+    position = [Math.random() * 80 - 40, -0.25, Math.random() * 80 - 40];
   } while (isPositionInExclusionZone(position));
-  return position;
+
+  const scale = Math.random() * (maxScale - minScale) + minScale;
+  const rotation = [0, Math.random() * Math.PI * 2, 0];
+
+  return { position, scale, rotation };
 }
+const treePositions = [...Array(treeAmount)].map(generateTree);
 
 function generateCheckpointPositions(amount) {
   const positions = [];
@@ -74,34 +79,40 @@ function generateCheckpointPositions(amount) {
 }
 
 export default function Level({ debug }) {
-  const [currentCheckpoint, setCurrentCheckpoint] = useState(0);
-
+  const [currentCheckpoint, setCurrentCheckpoint] = useState(1);
   return (
     <>
       <Ground position={[0, -0.25, 0]} debug={debug} />
-      {/* <Ramp position={[0, 0, -5]} /> */}
       <Car debug={debug} />
       {checkpointPositions.map((position, i) => (
         <Checkpoint
           key={"checkpoint-" + i}
-          position={[position[0], position[1] + 0.35, position[2]]}
+          position={[position[0], position[1] + 0.7, position[2]]}
           debug={debug}
+          number={i + 1}
+          currentCheckpoint={currentCheckpoint}
+          onCollide={() => {
+            if (i < checkpointAmount) setCurrentCheckpoint(i + 2);
+          }}
         />
       ))}
-      {[...Array(treeAmount)].map((_, i) => {
-        const scale = Math.random() * (maxScale - minScale) + minScale;
-        const position = generateTreePosition();
+      {treePositions.map((tree, i) => {
         return (
           <group key={"tree-" + i}>
             <Tree
-              position={position}
-              scale={[scale, scale, scale]}
-              rotation={[0, Math.random() * Math.PI * 2, 0]}
+              position={tree.position}
+              scale={tree.scale}
+              rotation={tree.rotation}
+              debug={debug}
             />
             <ColliderBox
               debug={debug}
-              position={[position[0], position[1] + 1, position[2]]}
-              scale={[scale * 0.75, scale * 5, scale * 0.75]}
+              position={[
+                tree.position[0],
+                tree.position[1] + 1,
+                tree.position[2],
+              ]}
+              scale={[tree.scale * 0.75, tree.scale * 5, tree.scale * 0.75]}
             />
           </group>
         );

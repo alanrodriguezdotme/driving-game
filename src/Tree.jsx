@@ -1,3 +1,4 @@
+import { useBox } from "@react-three/cannon";
 import * as THREE from "three";
 
 const coneGeometry = new THREE.ConeGeometry(1, 1, 6);
@@ -10,9 +11,22 @@ export default function Tree({
   position = [0, 0, 0],
   scale = [1, 1, 1],
   rotation = [0, 0, 0],
+  debug = true,
+  onCollide,
 }) {
+  const [colliderRef] = useBox(
+    () => ({
+      position,
+      type: "Static",
+      onCollide: (e) => {
+        onCollide && onCollide();
+      },
+    }),
+    [position]
+  );
+
   return (
-    <group position={position} scale={scale} rotation={rotation}>
+    <group scale={scale} position={position} rotation={rotation}>
       <mesh
         geometry={coneGeometry}
         material={leavesMaterial}
