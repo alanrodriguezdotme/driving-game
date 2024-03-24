@@ -1,7 +1,7 @@
 import { useBox } from "@react-three/cannon";
 import * as THREE from "three";
 
-const coneGeometry = new THREE.ConeGeometry(1, 1, 6);
+const coneGeometry = new THREE.ConeGeometry(1, 1, 4);
 const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 1, 6);
 
 const leavesMaterial = new THREE.MeshStandardMaterial({ color: "green" });

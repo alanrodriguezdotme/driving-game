@@ -5,7 +5,7 @@ import ColliderBox from "./ColliderBox";
 import Checkpoint from "./Checkpoint";
 import { useState } from "react";
 
-const treeAmount = 64;
+const treeAmount = 80;
 const minScale = 0.7;
 const maxScale = 1;
 
@@ -18,16 +18,23 @@ const checkpointPositions = generateCheckpointPositions(checkpointAmount);
 function isPositionInExclusionZone(position) {
   // Calculate the distance from the car position
   const distance = Math.sqrt(
-    Math.pow(position[0] - carPosition[0], 1.85) +
-      Math.pow(position[2] - carPosition[2], 1.85)
+    Math.pow(position[0] - carPosition[0], 2) +
+      Math.pow(position[2] - carPosition[2], 2)
   );
   return distance < exclusionRadius;
 }
 
 function generateTree() {
+  const outer = 90;
+  const inner = 45;
+
   let position;
   do {
-    position = [Math.random() * 80 - 40, -0.25, Math.random() * 80 - 40];
+    position = [
+      Math.random() * outer - inner,
+      -0.25,
+      Math.random() * outer - inner,
+    ];
   } while (isPositionInExclusionZone(position));
 
   const scale = Math.random() * (maxScale - minScale) + minScale;

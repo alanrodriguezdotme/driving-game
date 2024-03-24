@@ -49,6 +49,16 @@ export default function Checkpoint({
     if (meshRef.current) {
       meshRef.current.material.opacity = getOpacity();
     }
+
+    if (currentCheckpoint === number) {
+      setIsActive(true);
+    } else if (currentCheckpoint > number) {
+      setIsFinished(true);
+      setIsActive(false);
+    } else {
+      setIsActive(false);
+      setIsFinished(false);
+    }
   }, [currentCheckpoint]);
 
   return (
