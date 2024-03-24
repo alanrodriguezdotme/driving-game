@@ -3,7 +3,7 @@ import Ground from "./Ground";
 import Tree from "./Tree";
 import ColliderBox from "./ColliderBox";
 import Checkpoint from "./Checkpoint";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const treeAmount = 80;
 const minScale = 0.7;
@@ -87,20 +87,33 @@ function generateCheckpointPositions(amount) {
 
 export default function Level({ debug }) {
   const [currentCheckpoint, setCurrentCheckpoint] = useState(1);
+  const [checkpoints, setCheckpoints] = useState([checkpointPositions[0]]);
+
+  useEffect(() => {
+    setCheckpoints(checkpointPositions.slice(0, currentCheckpoint));
+  }, [currentCheckpoint]);
+
+  const handleCollide = (number) => {
+    if (number === currentCheckpoint && checkpoints.length < checkpointAmount) {
+      setCurrentCheckpoint(number + 1);
+    }
+  };
+
   return (
     <>
       <Ground position={[0, -0.25, 0]} debug={debug} />
-      <Car debug={debug} />
-      {checkpointPositions.map((position, i) => (
+      <Car
+        debug={debug}
+        currentCheckpointPosition={[checkpointPositions[currentCheckpoint - 1]]}
+      />
+      {checkpoints.map((cp, i) => (
         <Checkpoint
           key={"checkpoint-" + i}
-          position={[position[0], position[1] + 0.7, position[2]]}
+          position={[cp[0], cp[1] + 0.7, cp[2]]}
           debug={debug}
           number={i + 1}
           currentCheckpoint={currentCheckpoint}
-          onCollide={() => {
-            if (i < checkpointAmount) setCurrentCheckpoint(i + 2);
-          }}
+          onCollide={handleCollide}
         />
       ))}
       {treePositions.map((tree, i) => {

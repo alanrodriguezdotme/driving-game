@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useEffect, useRef } from "react";
@@ -7,7 +8,7 @@ import { WheelDebug } from "./WheelDebug";
 import { useKeyboardControls } from "./useKeyboardControls";
 import { Vector3 } from "three";
 
-export default function Car({ debug }) {
+export default function Car({ debug, currentCheckpointPosition }) {
   let result = useLoader(GLTFLoader, "/car-chassis.glb").scene;
 
   const position = [0, 1, 0];
@@ -38,6 +39,8 @@ export default function Car({ debug }) {
     useRef(null)
   );
 
+  const arrowRef = useRef();
+
   useKeyboardControls(vehicleApi, chassisApi);
 
   useFrame((state) => {
@@ -51,6 +54,16 @@ export default function Car({ debug }) {
     if (!debug) {
       state.camera.lookAt(chassisPosition);
       state.camera.position.lerp(cameraPosition.set(x, y, z), 0.1);
+    }
+
+    // Update arrow position to follow the car
+    if (arrowRef.current) {
+      arrowRef.current.position.copy(chassisPosition);
+      // Optionally adjust the arrow's height above the car or any other offset
+      arrowRef.current.position.y += 2; // Adjust this value as needed
+      // Point the arrow towards the currentCheckpointPosition
+
+      arrowRef.current.lookAt = currentCheckpointPosition[0];
     }
   });
 
@@ -66,6 +79,10 @@ export default function Car({ debug }) {
     });
   }, [result]);
 
+  useEffect(() => {
+    // console.log({ arrowRef: arrowRef.current, currentCheckpointPosition });
+  }, [arrowRef, currentCheckpointPosition]);
+
   return (
     <group ref={vehicle} name="vehicle" castShadow>
       <group
@@ -75,6 +92,12 @@ export default function Car({ debug }) {
         scale={[0.2, 0.2, 0.2]}
       >
         <primitive object={result} position={[0, -1.3, -0.26]} castShadow />
+      </group>
+      <group ref={arrowRef}>
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0, 0.2, 0.4, 4]} />
+          <meshBasicMaterial color="gold" />
+        </mesh>
       </group>
       {/* <mesh ref={chassisBody}>
         <meshBasicMaterial transparent opacity={0.3} />

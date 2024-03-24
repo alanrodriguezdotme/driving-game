@@ -6,57 +6,14 @@ import { useControls } from "leva";
 export default function Lights({ debug = false }) {
   const lightRef = useRef();
   const { scene } = useThree();
-
-  // const { top, bottom, left, right, near, far, posX, posY, posZ } = useControls(
-  //   "Shadow Camera",
-  //   {
-  //     top: {
-  //       value: 10,
-  //       min: 1,
-  //       max: 100,
-  //     },
-  //     bottom: {
-  //       value: -10,
-  //       min: -100,
-  //       max: -1,
-  //     },
-  //     left: {
-  //       value: -10,
-  //       min: -100,
-  //       max: -1,
-  //     },
-  //     right: {
-  //       value: 10,
-  //       min: 1,
-  //       max: 100,
-  //     },
-  //     near: {
-  //       value: 0.1,
-  //       min: 0.1,
-  //       max: 100,
-  //     },
-  //     far: {
-  //       value: 100,
-  //       min: 1,
-  //       max: 1000,
-  //     },
-  //     posX: {
-  //       value: 15,
-  //       min: 1,
-  //       max: 100,
-  //     },
-  //     posY: {
-  //       value: 15,
-  //       min: 1,
-  //       max: 100,
-  //     },
-  //     posZ: {
-  //       value: 5,
-  //       min: 1,
-  //       max: 100,
-  //     },
-  //   }
-  // );
+  const { ambientLight } = useControls({
+    ambientLight: {
+      value: 1.5,
+      min: 0,
+      max: 20,
+      step: 0.1,
+    },
+  });
 
   useEffect(() => {
     if (lightRef.current) {
@@ -93,7 +50,7 @@ export default function Lights({ debug = false }) {
         />
       </directionalLight>
 
-      <ambientLight intensity={1} />
+      <ambientLight intensity={ambientLight} />
     </>
   );
 }
