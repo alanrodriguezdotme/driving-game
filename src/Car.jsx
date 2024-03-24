@@ -57,13 +57,23 @@ export default function Car({ debug, currentCheckpointPosition }) {
     }
 
     // Update arrow position to follow the car
-    if (arrowRef.current) {
+    if (arrowRef.current && currentCheckpointPosition) {
       arrowRef.current.position.copy(chassisPosition);
-      // Optionally adjust the arrow's height above the car or any other offset
-      arrowRef.current.position.y += 2; // Adjust this value as needed
-      // Point the arrow towards the currentCheckpointPosition
+      arrowRef.current.position.y += 2; // Adjust the arrow's height above the car
 
-      arrowRef.current.lookAt = currentCheckpointPosition[0];
+      // Calculate the direction vector from the arrow to the checkpoint
+      const targetPosition = new Vector3(...currentCheckpointPosition);
+      const direction = targetPosition.sub(chassisPosition).normalize();
+
+      // Create a quaternion for the arrow's new rotation
+      const up = new Vector3(0, 1, 0); // Assuming the up direction is the y-axis
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(
+        up,
+        direction
+      );
+
+      // Apply the quaternion to the arrow's rotation
+      arrowRef.current.quaternion.copy(quaternion);
     }
   });
 
@@ -94,9 +104,9 @@ export default function Car({ debug, currentCheckpointPosition }) {
         <primitive object={result} position={[0, -1.3, -0.26]} castShadow />
       </group>
       <group ref={arrowRef}>
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <mesh>
           <cylinderGeometry args={[0, 0.2, 0.4, 4]} />
-          <meshBasicMaterial color="gold" />
+          <meshBasicMaterial color="orange" />
         </mesh>
       </group>
       {/* <mesh ref={chassisBody}>

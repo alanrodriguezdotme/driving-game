@@ -94,7 +94,10 @@ export default function Level({ debug }) {
   }, [currentCheckpoint]);
 
   const handleCollide = (number) => {
-    if (number === currentCheckpoint && checkpoints.length < checkpointAmount) {
+    if (
+      number === currentCheckpoint &&
+      checkpoints.length <= checkpointAmount
+    ) {
       setCurrentCheckpoint(number + 1);
     }
   };
@@ -104,7 +107,7 @@ export default function Level({ debug }) {
       <Ground position={[0, -0.25, 0]} debug={debug} />
       <Car
         debug={debug}
-        currentCheckpointPosition={[checkpointPositions[currentCheckpoint - 1]]}
+        currentCheckpointPosition={checkpoints[currentCheckpoint - 1]}
       />
       {checkpoints.map((cp, i) => (
         <Checkpoint
