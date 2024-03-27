@@ -121,23 +121,13 @@ export default function Level({ debug }) {
       ))}
       {treePositions.map((tree, i) => {
         return (
-          <group key={"tree-" + i}>
-            <Tree
-              position={tree.position}
-              scale={tree.scale}
-              rotation={tree.rotation}
-              debug={debug}
-            />
-            <ColliderBox
-              debug={debug}
-              position={[
-                tree.position[0],
-                tree.position[1] + 1,
-                tree.position[2],
-              ]}
-              scale={[tree.scale * 0.75, tree.scale * 5, tree.scale * 0.75]}
-            />
-          </group>
+          <Tree
+            key={"tree-" + i}
+            position={tree.position}
+            scale={tree.scale}
+            rotation={tree.rotation}
+            debug={debug}
+          />
         );
       })}
     </>

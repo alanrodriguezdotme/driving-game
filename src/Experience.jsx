@@ -8,7 +8,7 @@ import { useControls } from "leva";
 export default function Experience() {
   const cameraRef = useRef(null);
   const defaultCamera = {
-    zoom: 60,
+    zoom: 32,
     position: [100, 100, 100],
     near: 1,
     far: 2000,
