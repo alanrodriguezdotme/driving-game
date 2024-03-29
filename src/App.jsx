@@ -1,3 +1,4 @@
+import { Preload } from "@react-three/drei";
 import Experience from "./Experience";
 import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
@@ -28,6 +29,7 @@ export default function App() {
       >
         <Canvas shadows>
           <Experience />
+          <Preload all />
         </Canvas>
       </div>
     </div>

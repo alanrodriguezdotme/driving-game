@@ -1,9 +1,9 @@
 import Car from "./Car";
 import Ground from "./Ground";
 import Tree from "./Tree";
-import ColliderBox from "./ColliderBox";
 import Checkpoint from "./Checkpoint";
 import { useEffect, useState } from "react";
+import Explosion from "./Explosion";
 
 const treeAmount = 80;
 const minScale = 0.7;
@@ -109,6 +109,7 @@ export default function Level({ debug }) {
         debug={debug}
         currentCheckpointPosition={checkpoints[currentCheckpoint - 1]}
       />
+      {/* <Explosion position={[0, 2, 0]} scale={[2, 2, 2]} /> */}
       {checkpoints.map((cp, i) => (
         <Checkpoint
           key={"checkpoint-" + i}

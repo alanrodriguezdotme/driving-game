@@ -24,6 +24,7 @@ export default function Car({ debug, currentCheckpointPosition }) {
       args: chassisBodyArgs,
       mass: 100,
       position,
+      onCollide: (e) => {},
     }),
     useRef(null)
   );
@@ -113,6 +114,7 @@ export default function Car({ debug, currentCheckpointPosition }) {
         <meshBasicMaterial transparent opacity={0.3} />
         <boxGeometry args={chassisBodyArgs} />
       </mesh> */}
+
       <WheelDebug wheelRef={wheels[0]} radius={wheelRadius} />
       <WheelDebug wheelRef={wheels[1]} radius={wheelRadius} />
       <WheelDebug wheelRef={wheels[2]} radius={wheelRadius} />
